@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 814891082537601347}
   - component: {fileID: 4858045221928897302}
   m_Layer: 0
-  m_Name: EmptyHexagon
+  m_Name: HexVazio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

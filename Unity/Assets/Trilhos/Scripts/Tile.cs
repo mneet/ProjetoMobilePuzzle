@@ -15,6 +15,7 @@ public class Tile : MonoBehaviour
             Vector3 position = GridMap.Instance.SnapCoordinateToGrid(Vector3.zero);
             gameObject.AddComponent<TileDrag>();
         }
+        if (rotatable) RandomizeRotation();
     }
 
     private void OnMouseDown()
@@ -23,6 +24,15 @@ public class Tile : MonoBehaviour
         {
             transform.Rotate(0, 60, 0);
         }
+    }
+
+    private void RandomizeRotation()
+    {
+        Waypath waypath = GetComponent<Waypath>();
+        if (waypath != null && !waypath.startingPoint)
+        {
+            transform.Rotate(0, Random.Range(0, 6) * 60, 0); ;
+        }      
     }
 }
 
