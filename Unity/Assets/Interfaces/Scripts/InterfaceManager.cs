@@ -33,13 +33,6 @@ public class InterfaceManager : MonoBehaviour
 
     public void ExitGame()
     {
-        if (UnityEngine.Application.isEditor)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        else
-        {
-            UnityEngine.Application.Quit();
-        }
+        UnityEngine.Application.Quit();       
     }
 }
