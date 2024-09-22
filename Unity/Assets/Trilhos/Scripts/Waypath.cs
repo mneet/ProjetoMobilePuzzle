@@ -5,14 +5,31 @@ using UnityEngine;
 
 public class Waypath : MonoBehaviour
 {
+    public enum PathType
+    {
+        START_LINE,
+        PATH,
+        GOAL_LINE
+    }
+    
+    // Waypath state
+    public PathType pathType = PathType.PATH;
     public bool waypathActive = false;
-    public bool startingPoint = false;
 
+    // Waypaths connections
     public Waypath nextWaypath = null;
     public Waypath previousWaypath = null;
 
+    // Waypoints array
     public Transform[] waypath;
 
+    // Debug flags
+    [Header("Debug Flags")]
+    [SerializeField] private bool verboseConnections = false;
+
+    #region Path Connection Methods
+
+    // Connect next waypath to this when collider enters
     public void ConnectWaypath(Waypoint collider)
     {
         Waypath colliderWaypath = collider.waypath;
@@ -20,11 +37,13 @@ public class Waypath : MonoBehaviour
             nextWaypath = colliderWaypath;
             colliderWaypath.previousWaypath = this;
             colliderWaypath.waypathActive = true;
+                   
+            if (verboseConnections) Debug.Log($"Connected waypath {this.name} to {colliderWaypath.name}");
             InvertWaypath(collider);
-            Debug.Log($"Connected waypath {this.name} to {colliderWaypath.name}");
         }
     }
 
+    // Disconnect next waypath when collider exit
     public void DisconnectWaypath(Waypath collider)
     {
         if (nextWaypath != null && nextWaypath == collider)
@@ -34,6 +53,7 @@ public class Waypath : MonoBehaviour
         }
     }
 
+    // Update waypath when collider is already colliding
     public void UpdateWaypath(Waypoint collider)
     {
         Waypath connectedPath = collider.waypath;
@@ -41,33 +61,45 @@ public class Waypath : MonoBehaviour
         {
             connectedPath.previousWaypath = this;
             nextWaypath = connectedPath;
+            
+            if (verboseConnections) Debug.Log($"Updated waypath {this.name} to {connectedPath.name}");
             InvertWaypath(collider);
-            Debug.Log($"Updated waypath {this.name} to {connectedPath.name}");
         }
     }
 
+    // Invert next waypath points if connected point is the last point
     public void InvertWaypath(Waypoint connectedPoint)
     {
         Waypath connectedWaypath = connectedPoint.waypath;
         int collisionPoint = Array.IndexOf(connectedWaypath.waypath, connectedPoint.transform);
         if (collisionPoint == connectedWaypath.waypath.Length - 1)
         {
-            Debug.Log($"Inverting waypath {connectedWaypath.name}");
+            if (verboseConnections) Debug.Log($"Inverting waypath {connectedWaypath.name}");
             Array.Reverse(connectedWaypath.waypath);
         }
     }
+    #endregion
 
+    #region Unity Methods
     private void Update()
     {
         if (previousWaypath == null)
         {
-            if (!startingPoint) waypathActive = false;
+            if (pathType != PathType.START_LINE) waypathActive = false;
         }
         else
         {
-            if (previousWaypath.waypathActive) waypathActive = true;
+            if (previousWaypath.waypathActive)
+            {
+                waypathActive = true;
+                if (pathType == PathType.GOAL_LINE && LevelManager.Instance != null)
+                {
+                    LevelManager.Instance.PuzzleComplete();
+                }
+            }
             else waypathActive = false;
         }
     }
+    #endregion endregion
 }
 

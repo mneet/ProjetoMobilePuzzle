@@ -20,7 +20,7 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (rotatable)
+        if (rotatable && (GameManager.Instance != null && !GameManager.Instance.pause))
         {
             transform.Rotate(0, 60, 0);
         }
@@ -29,7 +29,7 @@ public class Tile : MonoBehaviour
     private void RandomizeRotation()
     {
         Waypath waypath = GetComponent<Waypath>();
-        if (waypath != null && !waypath.startingPoint)
+        if (waypath != null && waypath.pathType == Waypath.PathType.START_LINE)
         {
             transform.Rotate(0, Random.Range(0, 6) * 60, 0); ;
         }      

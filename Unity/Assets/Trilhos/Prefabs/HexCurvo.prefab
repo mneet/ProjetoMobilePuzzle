@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypath: {fileID: 4534049190553572721}
-  nextWaypoint: {fileID: 0}
 --- !u!33 &5929154914932025283
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -65,7 +64,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778786445077777850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 0
@@ -268,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307df3619f43b4c4cbc0bb9b72858821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathType: 1
   waypathActive: 0
-  startingPoint: 0
   nextWaypath: {fileID: 0}
   previousWaypath: {fileID: 0}
   waypath:
@@ -326,7 +325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypath: {fileID: 4534049190553572721}
-  nextWaypoint: {fileID: 0}
 --- !u!33 &1336377390612283356
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -342,7 +340,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7787151754967803121}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 0
@@ -474,7 +472,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypath: {fileID: 4534049190553572721}
-  nextWaypoint: {fileID: 0}
 --- !u!33 &2539721730861328707
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -490,7 +487,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8372471999883870174}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 0
@@ -622,7 +619,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypath: {fileID: 4534049190553572721}
-  nextWaypoint: {fileID: 4957198067929956965}
 --- !u!33 &6521596152142726990
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -638,7 +634,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8928195392246933237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 0
