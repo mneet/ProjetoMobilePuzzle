@@ -21,7 +21,7 @@ public class InterfaceManager : MonoBehaviour
         if (sceneName != null && sceneName != "")
         {
             Time.timeScale = 1f;
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);        
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         }
     }
 
@@ -29,5 +29,17 @@ public class InterfaceManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void ExitGame()
+    {
+        if (UnityEngine.Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            UnityEngine.Application.Quit();
+        }
     }
 }

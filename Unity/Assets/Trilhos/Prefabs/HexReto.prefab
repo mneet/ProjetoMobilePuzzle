@@ -65,6 +65,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6399975758355377505}
   - {fileID: 2324404909460304010}
   - {fileID: 415504775499386432}
   - {fileID: 3137535731767049193}
@@ -472,6 +473,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrilhoReto
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6fec52b28b3de9e48ae18c0fcdfe556a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -540,7 +545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cb9b869d2de007e458bcca3a35f110aa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -551,4 +556,70 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cb9b869d2de007e458bcca3a35f110aa, type: 3}
   m_PrefabInstance: {fileID: 2867465363819550561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6871351146957458058
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1737418792507838810}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: aaf6190d665a99c46972ea5a1357fba7, type: 2}
+    - target: {fileID: 919132149155446097, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+      propertyPath: m_Name
+      value: trilho_reto
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+--- !u!4 &6399975758355377505 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0a25286effd153d4bbf6b73dfef03c82, type: 3}
+  m_PrefabInstance: {fileID: 6871351146957458058}
   m_PrefabAsset: {fileID: 0}

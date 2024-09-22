@@ -214,6 +214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6399506559281071247}
   - {fileID: 2324404909460304010}
   - {fileID: 6552219451973577810}
   - {fileID: 3137535731767049193}
@@ -276,6 +277,7 @@ MonoBehaviour:
   - {fileID: 6268377492531647474}
   - {fileID: 639966533661789150}
   - {fileID: 3562396419552359446}
+  verboseConnections: 0
 --- !u!1 &7787151754967803121
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cb9b869d2de007e458bcca3a35f110aa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -855,6 +857,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrilhoCurvo
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7763c3280f80f7d44b7c0d965f29c3b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -864,4 +870,74 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7763c3280f80f7d44b7c0d965f29c3b9, type: 3}
   m_PrefabInstance: {fileID: 6729663847297665977}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6864933005186982756
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1737418792507838810}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9152104c5613fe645b6ad0341d5e0bd7, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: aaf6190d665a99c46972ea5a1357fba7, type: 2}
+    - target: {fileID: 919132149155446097, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+      propertyPath: m_Name
+      value: trilho_curvo
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+--- !u!4 &6399506559281071247 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9ec889cc0181b3b449a39697fe1f0f02, type: 3}
+  m_PrefabInstance: {fileID: 6864933005186982756}
   m_PrefabAsset: {fileID: 0}
