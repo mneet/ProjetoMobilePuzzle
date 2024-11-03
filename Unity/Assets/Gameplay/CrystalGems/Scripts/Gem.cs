@@ -17,13 +17,14 @@ public class Gem : MonoBehaviour
 
     [Header("System Flags")]  
     [SerializeField] private bool collided = false;
+    [SerializeField] private bool destroyWhenCollected = true;
     private Vector3 startPosition;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !collided)
         {
-            LevelManager.Instance.CollectGem();
+            if (LevelManager.Instance != null) LevelManager.Instance.CollectGem();
             collided = true;
         }
     }
@@ -41,6 +42,10 @@ public class Gem : MonoBehaviour
         if (collided)
         {
             AnimateCollect();
+        }
+        else
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, 0.1f);
         }
     }
 
@@ -69,7 +74,12 @@ public class Gem : MonoBehaviour
             
         if (scaleMultiplier >= 1.1)
         {
-            springTimer = springDuration;
+            if (destroyWhenCollected) Destroy(gameObject);
+            else
+            {
+                collided = false;
+                springTimer = 0;
+            }
         }
         // Incrementa o timer com o tempo decorrido
         springTimer += Time.deltaTime;

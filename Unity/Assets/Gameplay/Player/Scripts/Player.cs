@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     private float wobbleIntenisityMeter = 0.2f;
 
     // Private flags
-    private bool startingPathFound = false;
+    public bool startingPathFound = false;
 
     #region Path Following Methods
 
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
                 path.Dequeue();
                 if (path.Count <= 0)
                 {
-                    if (currentWaypath.pathType == Waypath.PathType.GOAL_LINE)
+                    if (currentWaypath.pathType == Waypath.PathType.GOAL_LINE && LevelManager.Instance != null)
                     {
                         followWaypoints = false;
                         LevelManager.Instance.GoalReached();
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        if (currentWaypath.pathType != Waypath.PathType.GOAL_LINE)
+                        if (currentWaypath.pathType != Waypath.PathType.GOAL_LINE && LevelManager.Instance != null)
                         {
                             ShakeCar();
                             LevelManager.Instance.LoseLevel();

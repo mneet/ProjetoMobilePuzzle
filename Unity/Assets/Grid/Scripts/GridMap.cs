@@ -24,6 +24,8 @@ public class GridMap : MonoBehaviour
     [SerializeField] private Tile tileSelected = null;
     public bool tileSelectedFlag = false;
 
+    [SerializeField] private GameObject HexButton;
+
     #region Unity Methods
 
     private void Awake()
@@ -111,10 +113,6 @@ public class GridMap : MonoBehaviour
                 }                 
             }         
         }
-        else
-        {
-            ClearSelectedTile();
-        }
     }
 
     public void InitializeWithObject(GameObject prefab)
@@ -132,7 +130,8 @@ public class GridMap : MonoBehaviour
         { 
             tileSelected.DeselectTile();
             tileSelected = null;
-            tileSelectedFlag = false;         
+            tileSelectedFlag = false;
+            HexButton.SetActive(false);
         }
     }
    
@@ -143,6 +142,7 @@ public class GridMap : MonoBehaviour
             tileSelected = tile;
             tileSelectedFlag = true;
             tile.SelectTile();
+            HexButton.SetActive(true);
         }
         else
         {
@@ -163,6 +163,15 @@ public class GridMap : MonoBehaviour
             }           
         }
 
+    }
+
+    public void RotateSelectedTile(int dir = 1)
+    {
+        if (tileSelected != null && tileSelected.rotatable)
+        {
+            tileSelected.RotateTile(dir);
+            LevelManager.Instance.RegisterTileRotated();
+        }
     }
 
     #endregion
