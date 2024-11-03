@@ -9,12 +9,30 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3e69084f9589f1246b81f8c6415281f4
   - enabled: 1
-    path: Assets/Scenes/Levels/PuzzleLevel1.unity
-    guid: 01bdc1180000344418352c93edeb0e7c
+    path: Assets/Scenes/Levels/Tier1/PuzzleLevel1.unity
+    guid: 7bec72acf6379ac4abe152be12760729
   - enabled: 1
-    path: Assets/Scenes/Levels/PuzzleLevel2.unity
-    guid: 8f8fe4d6d13cbfa48844613359da5619
+    path: Assets/Scenes/Levels/Tier1/PuzzleLevel2.unity
+    guid: 8cbc0213b7230194297a19b92d414a2a
   - enabled: 1
-    path: Assets/Scenes/Levels/PuzzleLevel3.unity
-    guid: 9a36c7ebe580a6943b634273e7a05a51
+    path: Assets/Scenes/Levels/Tier1/PuzzleLevel3.unity
+    guid: 40c917d93577cc24facd025487041c59
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tier2/PuzzleLevel4.unity
+    guid: 0f5bc45e77cd3ad4bb7bb6b351e1caea
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tier2/PuzzleLevel5.unity
+    guid: c28aea98645fcef4995c17830e07f93f
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tier2/PuzzleLevel6.unity
+    guid: 15247bc48f50bda4a8f6cd90c8d8e4dd
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tier3/PuzzleLevel7.unity
+    guid: a0d4bbb41389a7347a2d616abed940f0
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tier3/PuzzleLevel8.unity
+    guid: 8ca45b27118fea54da0926629867383c
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tier3/PuzzleLevel9.unity
+    guid: 6a6d3bf875be8f74b8df15146ba75c8c
   m_configObjects: {}
