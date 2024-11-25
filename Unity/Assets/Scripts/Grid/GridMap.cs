@@ -58,6 +58,7 @@ public class GridMap : MonoBehaviour
         }
     }
 
+
     #endregion
 
     #region Utils
@@ -146,10 +147,9 @@ public class GridMap : MonoBehaviour
         }
         else
         {
-            if (tileSelected == tile && tile.rotatable)
+            if (tileSelected == tile)
             {
-                tile.RotateTile();
-                LevelManager.Instance.RegisterTileRotated();
+                ClearSelectedTile();
             }
             else if (tileSelected.moveable && tile.moveable)
             {

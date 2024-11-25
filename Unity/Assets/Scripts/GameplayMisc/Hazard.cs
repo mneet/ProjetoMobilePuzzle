@@ -14,6 +14,7 @@ public class Hazard : MonoBehaviour
             other.GetComponent<Player>().ShakeCar();
             LevelManager.Instance.LoseCartOres();
             collided = true;
+            AudioManager.Instance.PlayCarCrash();
         }
     }
 }

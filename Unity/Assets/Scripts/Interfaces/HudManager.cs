@@ -11,12 +11,15 @@ public class HudManager : InterfaceManager
     [Header("Object References")]
     [SerializeField] private GameObject hudPanel;
     [SerializeField] private GameObject endgamePanel;
+    [SerializeField] private GameObject defeatPanel;
 
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject score;
 
     [Header("Score Bars")]
     [SerializeField] private GameObject[] scoreBars;
+    [SerializeField] private Sprite scoreBarWin;
+    [SerializeField] private Sprite scoreBarLose;
 
     public void updateTimer(float timer)
     {
@@ -29,17 +32,34 @@ public class HudManager : InterfaceManager
     public void callEndgamePanel()
     {
         colorScoreBars();
-        endgamePanel.SetActive(true);
-        hudPanel.SetActive(false);
+        ChangeMenu(endgamePanel);
+    }
+
+    public void callDefeatPanel()
+    {
+        ChangeMenu(defeatPanel);
+    }
+
+    public void PauseGame()
+    {
+        GameManager.Instance.PauseGame();
+    }
+
+    public void RotateSelectedTile(int dir)
+    {
+        GridMap.Instance.RotateSelectedTile(dir);
+    }
+
+    public void ClearSelectedTile()
+    {
+        GridMap.Instance.ClearSelectedTile();
     }
 
     private void colorScoreBars()
     {
-        Color goldColor;
-        ColorUtility.TryParseHtmlString("#FFD700", out goldColor);
         for (int i = 0; i < LevelManager.Instance.score; i++)
         {
-            scoreBars[i].GetComponent<RawImage>().color = goldColor;
+            scoreBars[i].GetComponent<Image>().sprite = scoreBarWin;
         }
     }
 

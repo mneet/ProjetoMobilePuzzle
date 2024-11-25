@@ -19,6 +19,12 @@ public class Gem : MonoBehaviour
     [SerializeField] private bool collided = false;
     [SerializeField] private bool destroyWhenCollected = true;
     private Vector3 startPosition;
+    private bool animating = false;
+
+    [Header("Object References")]
+    [SerializeField] private GameObject gemModel;
+    [SerializeField] private ParticleSystem gemParticles;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -36,7 +42,7 @@ public class Gem : MonoBehaviour
 
     private void Update()
     {
-        SineWaveMovement();
+        if (!animating) SineWaveMovement();
         RotateAroundY();
 
         if (collided)
@@ -56,33 +62,50 @@ public class Gem : MonoBehaviour
 
     private void SineWaveMovement()
     {
-        float offset = amplitude * Mathf.Sin(Time.time * frequency);
+        springTimer += Time.deltaTime;
+        float offset = amplitude * Mathf.Sin(springTimer * frequency);
         transform.position = startPosition + direction * offset;
+    }
+
+    private void PlayParticle()
+    {
+        AudioManager.Instance.PlaySoundEffect(0);
+        gemParticles.Play();
     }
 
     private void AnimateCollect()
     {
+        if (animating) return;
+        animating = true;
+        springTimer = 0f;
 
-        // Normaliza o tempo para que ele fique entre 0 e 1
-        float normalizedTime = springTimer / springDuration;
+        
+        Invoke("PlayParticle", 0.5f);
+        // Move Up
+        LeanTween.moveY(gameObject, transform.position.y + .3f, 0.5f).setEase(LeanTweenType.easeInSine);
+        // Scale Down
+        LeanTween.scale(gameObject, new Vector3(0.7f, 0.7f, 0.7f), .5f).setEase(LeanTweenType.easeInSine);
 
-        // Usa a curva para determinar o valor da escala neste ponto do tempo
-        float scaleMultiplier = springCurve.Evaluate(normalizedTime);
+        // If Destroy is turned on, tween alpha
+        if (destroyWhenCollected) LeanTween.alpha(gemModel, 0f, .5f).setDelay(0.5f).setEase(LeanTweenType.easeInSine);
 
-        // Aplica a escala multiplicada
-        transform.localScale = Vector3.one * scaleMultiplier;
-            
-        if (scaleMultiplier >= 1.1)
+        // Spring back to original scale
+        LeanTween.scale(gameObject, Vector3.one, 1f).setEase(LeanTweenType.easeOutElastic).setDelay(.5f).setOnComplete(() =>
         {
-            if (destroyWhenCollected) Destroy(gameObject);
-            else
+            
+            if (destroyWhenCollected)
             {
-                collided = false;
-                springTimer = 0;
+                Destroy(gameObject);
             }
-        }
-        // Incrementa o timer com o tempo decorrido
-        springTimer += Time.deltaTime;
-          
+            else if (!destroyWhenCollected)
+            {
+                LeanTween.moveY(gameObject, startPosition.y, 1f).setDelay(1.2f).setEase(LeanTweenType.easeInSine).setOnComplete(() =>
+                {
+                    animating = false;
+                    collided = false;
+                });
+            }
+        });
+
     }
 }

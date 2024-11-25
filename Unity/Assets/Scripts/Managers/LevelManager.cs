@@ -63,6 +63,7 @@ public class LevelManager : MonoBehaviour
     #region Level Management Methods
     private void LevelStateController()
     {
+        if (GameManager.Instance.pause) return;
         switch (state)
         {
             case LevelState.PUZZLE:
@@ -97,9 +98,14 @@ public class LevelManager : MonoBehaviour
 
     public void GoalReached()
     {
+        Invoke("HandleGoalReached", 1f);
+    }
+
+    private void HandleGoalReached()
+    {
         levelVictory = true;
         state = LevelState.END;
-        Debug.Log("Player cart reached the goal");
+
         CalculateScore();
         if (HudManager.Instance != null)
         {
@@ -109,12 +115,17 @@ public class LevelManager : MonoBehaviour
     
     public void LoseLevel()
     {
+        Invoke("HandleLoseLevel", 1f);
+    }
+
+    private void HandleLoseLevel()
+    {
         levelVictory = false;
         state = LevelState.END;
         score = 0;
         if (HudManager.Instance != null)
         {
-            HudManager.Instance.callEndgamePanel();
+            HudManager.Instance.callDefeatPanel();
         }
     }
 

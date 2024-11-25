@@ -1,217 +1,194 @@
-using NaughtyAttributes;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : MonoBehaviour
 {
-	public interface ISound
-	{
-		public string Name { get; }
-		public AudioClip AudioClip { get; }
-	}
+    public static AudioManager Instance;
 
-	[System.Serializable]
-	public class Sound : ISound
-	{
-		public string name;
-		public AudioClip audioClip;
+    // Sistemas de sons
+    [SerializeField] private AudioSource _bgMusicSrc;
+    [SerializeField] private AudioSource _sfxSrc;
+    public AudioSource _carSrc;
+    public AudioSource _carMovingSrc;
 
-		public string Name => name;
-		public AudioClip AudioClip => audioClip;
-	}
+    // Listas de sons
+    [SerializeField] private AudioClip[] _bgMusics;
+    [SerializeField] private AudioClip[] _sfxClips;
 
-	[Header("Audios")]
-	[SerializeField] private Sound[] musics;
-	[SerializeField] private Sound[] soundEffects;
-	[Header("Settings")]
-	[SerializeField, Tooltip("Duration in seconds of the audio fade ins and outs.")] private float fadeTime = 1f;
-	[Header("Debug")]
-	[SerializeField, ReadOnly] private AudioSource[] tracks;
+    // Player
+    [Header("Audio")]
+    [SerializeField] private AudioClip[] carCrashes;
+    [SerializeField] private AudioMixer audioMixer;
 
-	public const string MusicVolumeKey = "MusicVolume";
-	public const string SfxVolumeKey = "SfxVolume";
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this);
+    }
 
-	public AudioSource[] Tracks => tracks;
-	public bool IsMusicMuted
-	{
-		get => PlayerPrefs.GetInt(MusicVolumeKey, 0) == 1;
-		set => PlayerPrefs.SetInt(MusicVolumeKey, value ? 1 : 0);
-	}
-	public bool IsSfxMuted
-	{
-		get => PlayerPrefs.GetInt(SfxVolumeKey, 0) == 1;
-		set => PlayerPrefs.SetInt(SfxVolumeKey, value ? 1 : 0);
-	}
+    private void Start()
+    {
+        GetVolumeBg();
+        
+    }
 
-	#region Unity Messages
-	protected override void Awake()
-	{
-		base.Awake();
-		tracks = GetComponents<AudioSource>();
-	}
-	#endregion
+    #region Scene Management
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-	#region Public Methods
-	public void PauseTrack(int trackNumber)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
-		if (audioSource != null)
-			audioSource.Pause();
-	}
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ChangeMusicForScene(scene.name);
+    }
 
-	public void ResumeTrack(int trackNumber)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
+    public void ChangeMusicForScene(string sceneName)
+    {
+        // Map scene names to specific audio clips
+        AudioClip clipToPlay = null;
 
-		if (audioSource != null)
-			audioSource.UnPause();
-	}
+        switch (sceneName)
+        {
+            case "MainMenu":
+                clipToPlay = _bgMusics[0];
+                break;
+            default:
+                clipToPlay = _bgMusics[1]; 
+                break;
+        }
 
-	public void StopTrack(int trackNumber)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
+        if (clipToPlay != null && _bgMusicSrc.clip != clipToPlay)
+        {
+            _bgMusicSrc.clip = clipToPlay;
+            _bgMusicSrc.Play();
+        }
+        else if (clipToPlay == null)
+        {
+            _bgMusicSrc.Stop(); // Stop if no music is assigned
+        }
+    }
+    #endregion
 
-		if (audioSource != null)
-			audioSource.Stop();
-	}
+    #region Play Sound
 
-	public void PauseAllTracks()
-	{
-		foreach (AudioSource track in FindObjectsOfType<AudioSource>())
-			PauseTrack(track);
-	}
+    public void PlayMusic(int idBgMusic)
+    {
+        AudioClip clip = _bgMusics[idBgMusic];
+        _bgMusicSrc.Stop();
+        _bgMusicSrc.clip = clip;
+        _bgMusicSrc.loop = true;
+        _bgMusicSrc.Play();
 
-	public void ResumeAllTracks()
-	{
-		foreach (AudioSource track in FindObjectsOfType<AudioSource>())
-			ResumeTrack(track);
-	}
+    }
 
-	public void StopAllTracks()
-	{
-		foreach (AudioSource track in FindObjectsOfType<AudioSource>())
-			StopTrack(track);
-	}
+    public void PlaySoundEffect(int idSfx)
+    {
+        AudioClip clip = _sfxClips[idSfx];
+        _sfxSrc.PlayOneShot(clip);
+    }
+    
+    public void PlayCarCrash()
+    {
+        AudioClip clip = carCrashes[Random.Range(1, carCrashes.Length)];
+        _carSrc.PlayOneShot(clip);
+    }
 
-	public bool IsTrackPlayingSound(string soundName, int trackNumber)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
-		if (audioSource.isPlaying == false)
-			return false;
+    public void PlayCarBigCrash()
+    {
+        AudioClip clip = carCrashes[0];
+        _carSrc.PlayOneShot(clip);
+    }
 
-		return audioSource.clip.name == GetAudioClip(soundName).name;
-	}
+    public void PlayCarMoving()
+    {
+        if (_carMovingSrc.isPlaying)
+        {
+            _carMovingSrc.Pause();
+        }
+        else
+        {
+            _carMovingSrc.Play();
+        }
+    }
 
-	public void PlaySound(string soundName, int trackNumber)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
-		audioSource.clip = GetAudioClip(soundName);
-		audioSource.loop = true;
+    #endregion
 
-		if (!audioSource.isPlaying)
-			audioSource.Play();
-	}
+    #region Volume changer
 
-	public void PlaySoundOneShot(string soundName, int trackNumber)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
-		if (audioSource != null)
-			audioSource.PlayOneShot(GetAudioClip(soundName));
-	}
+    public void MuteSFX(bool option)
+    {
+        _sfxSrc.mute = option;
+    }
+   
+    public void MuteBG(bool option)
+    {
+        _bgMusicSrc.mute = option;
+    }
+    
+    public void UpdateVolumeSfx(float valor)
+    {
+        float newVolume = valor == 0 ? -80 : 0 - (30f - (30f * valor));
+        audioMixer.SetFloat("VolumeSFX", newVolume);
+    }
+    
+    public void UpdateVolumeBg(float valor)
+    {
+        float newVolume = valor == 0 ? -80 : 0 - (30f - (30f * valor));
+        audioMixer.SetFloat("VolumeBGM", newVolume);
+    }
 
-	public IEnumerator WaitPlaySoundOneShot(string soundName, int trackNumber, Action action = null)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
-		if (audioSource != null)
-			audioSource.PlayOneShot(GetAudioClip(soundName));
+    public void UpdateVolumeMaster(float valor)
+    {
+        float newVolume = valor == 0 ? -80 : 0 - (30f - (30f * valor));
+        audioMixer.SetFloat("VolumeMaster", newVolume);
+    }
 
-		yield return new WaitWhile(() => audioSource.isPlaying);
-		action();
-	}
+    #endregion
 
-	public float GetTrackVolume(int trackNumber)
-	{
-		return GetTrack(trackNumber).volume;
-	}
+    #region Get and Set
 
-	public void ChangeTrackVolume(int trackNumber, float volume)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
-		if (audioSource != null)
-			audioSource.volume = volume;
-	}
+    public void SaveVolumeBg()
+    {
+        float volumeMusic = _bgMusicSrc.volume;
+        PlayerPrefs.SetFloat("VolumeBG", volumeMusic);
 
-	public void ChangeSoundWithFade(string soundName, int trackNumber) => StartCoroutine(StartChangeSoundWithFade(soundName, trackNumber, GetTrackVolume(trackNumber)));
-	#endregion
+    }
+    
+    public void SaveVolumeSfx()
+    {
+        float volumeMusic = _sfxSrc.volume;
+        PlayerPrefs.SetFloat("VolumeSFX", volumeMusic);
+    }
+    
+    public float GetVolumeBg()
+    {
+        float volume = PlayerPrefs.GetFloat("VolumeBG", 0.5f);
+        _bgMusicSrc.volume = volume;
+        return volume;
+    }
+    
+    public float GetVolumeSfx()
+    {
+        float volume = PlayerPrefs.GetFloat("VolumeSFX", 0.5f);
+        _sfxSrc.volume = volume;
+        return volume;
+    }
 
-	#region Private Methods
-	private AudioSource GetTrack(int trackNumber)
-	{
-		if (trackNumber == 0)
-		{
-			Debug.LogError("Tracks start at number 1.");
-		}
-
-		return tracks[trackNumber - 1];
-	}
-
-	private AudioClip GetAudioClip(string soundName)
-	{
-		foreach (ISound sound in soundEffects)
-		{
-			if (sound.Name == soundName)
-				return sound.AudioClip;
-		}
-
-		foreach (ISound music in musics)
-		{
-			if (music.Name == soundName)
-				return music.AudioClip;
-		}
-
-		Debug.LogError("Audio " + soundName + " not found.");
-		return null;
-	}
-
-	private void PauseTrack(AudioSource track) => track.Pause();
-
-	private void ResumeTrack(AudioSource track) => track.UnPause();
-
-	private void StopTrack(AudioSource track) => track.Stop();
-
-	private IEnumerator StartChangeSoundWithFade(string soundName, int trackNumber, float targetVolume)
-	{
-		AudioSource audioSource = GetTrack(trackNumber);
-
-		yield return Fade(audioSource, 0);
-
-		audioSource.clip = GetAudioClip(soundName);
-		audioSource.loop = true;
-
-		if (!audioSource.isPlaying)
-			audioSource.Play();
-
-		yield return Fade(audioSource, targetVolume);
-	}
-
-	private IEnumerator Fade(AudioSource track, float targetVolume)
-	{
-		float currentTime = 0;
-		float start = track.volume;
-
-		while (currentTime < fadeTime)
-		{
-			currentTime += Time.deltaTime;
-			track.volume = Mathf.Lerp(start, targetVolume, currentTime / fadeTime);
-			yield return null;
-		}
-
-		yield break;
-	}
-	#endregion
+    #endregion
 }

@@ -64,10 +64,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5461893188009448840, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2699813121790595988, guid: 7eccbabab7470be44a7486f36ca0dc8e, type: 3}
     - target: {fileID: 7425326921641311365, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
       propertyPath: m_Name
       value: GemRuby
       objectReference: {fileID: 0}
+    - target: {fileID: 8005003733467151932, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
+      propertyPath: gemModel
+      value: 
+      objectReference: {fileID: 5863630976864882489}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1038220183252736615, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
@@ -155,6 +163,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eccbabab7470be44a7486f36ca0dc8e, type: 3}
+--- !u!1 &5863630976864882489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7eccbabab7470be44a7486f36ca0dc8e, type: 3}
+  m_PrefabInstance: {fileID: 6746010297239024232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6490845823284434307 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7eccbabab7470be44a7486f36ca0dc8e, type: 3}

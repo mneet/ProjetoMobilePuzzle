@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
 
     // Private flags
     public bool startingPathFound = false;
+    private bool carMovingAudioPlayed = false;
+    private bool endReached = false;
 
     #region Path Following Methods
 
@@ -50,13 +52,21 @@ public class Player : MonoBehaviour
     // Follow waypoints queue
     private void followWaypoint()
     {
+        if (GameManager.Instance != null && GameManager.Instance.pause) return;
+
         if (path != null && path.Count > 0)
         {
+            if (!carMovingAudioPlayed)
+            {
+                AudioManager.Instance.PlayCarMoving();
+                carMovingAudioPlayed = true;
+            }
             Transform point = path.Peek();
 
             Vector3 targetPosition = new Vector3(point.position.x, transform.position.y, point.position.z);
             transform.position = Vector3.MoveTowards(transform.position, point.position, moveSpeed * Time.deltaTime);
             lookAtWaypoint(point);
+
 
             if (Vector3.Distance(transform.position, point.position) < 0.1f)
             {
@@ -65,8 +75,8 @@ public class Player : MonoBehaviour
                 {
                     if (currentWaypath.pathType == Waypath.PathType.GOAL_LINE && LevelManager.Instance != null)
                     {
-                        followWaypoints = false;
                         LevelManager.Instance.GoalReached();
+                        endReached = true;
                     }
 
                     if (currentWaypath.nextWaypath != null)
@@ -75,19 +85,27 @@ public class Player : MonoBehaviour
                         BuildPath();   
                       
                     }
-                    else
+                    else 
                     {
-                        if (currentWaypath.pathType != Waypath.PathType.GOAL_LINE && LevelManager.Instance != null)
+                        if (LevelManager.Instance != null)
                         {
-                            ShakeCar();
-                            LevelManager.Instance.LoseLevel();
+                            if (carMovingAudioPlayed)
+                            {
+                                AudioManager.Instance.PlayCarMoving();
+                                carMovingAudioPlayed = false;
+                            }
+                            if (!endReached)
+                            {
+                                AudioManager.Instance.PlayCarBigCrash();
+                                ShakeCar();
+                                LevelManager.Instance.LoseLevel();
+                            }
                         }
                     }
                 }
             }
         }
     }
-
     // Build waypoints queue with waypoints from current waypath
     private void BuildPath()
     {
@@ -103,7 +121,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         BuildPath();
-
+        AudioManager.Instance._carSrc = GameObject.Find("CarCrashes").GetComponent<AudioSource>();
+        AudioManager.Instance._carMovingSrc = GameObject.Find("CarMovingAudio").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -112,6 +131,7 @@ public class Player : MonoBehaviour
         {
             followWaypoint();
         }
+
 
         if (wobbleCar)
         {
@@ -143,7 +163,7 @@ public class Player : MonoBehaviour
                 
                 // Criar a rotação alvo apenas no eixo Y
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Debug.Log(targetRotation);
+                
                 transform.rotation = targetRotation;
             }
         }
@@ -167,5 +187,6 @@ public class Player : MonoBehaviour
     {
         wobbleIntenisityMeter = wobbleIntensity;
         wobbleCar = true;
+        
     }
 }

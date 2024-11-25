@@ -8,7 +8,6 @@ public class Teleporter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision detected");
         if (other.gameObject.CompareTag("Player"))
         {
             Player player = other.gameObject.GetComponent<Player>();

@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d794c5d2c726e44ab66efbcfd92c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathType: 0
   state: 0
   moveable: 1
   rotatable: 1
@@ -274,7 +275,7 @@ MonoBehaviour:
   waypath:
   - {fileID: 6267530474964668494}
   - {fileID: 3562396419552359446}
-  verboseConnections: 1
+  verboseConnections: 0
 --- !u!1 &8372471999883870174
 GameObject:
   m_ObjectHideFlags: 0

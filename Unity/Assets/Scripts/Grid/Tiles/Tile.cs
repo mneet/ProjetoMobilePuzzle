@@ -20,6 +20,8 @@ public class Tile : MonoBehaviour
     public PathType pathType = PathType.STRAIGHT;
     public TileState state = TileState.IDLE;
 
+    private bool stateSet = false;
+
     public bool Placed { get; private set; }
     public bool moveable = true;
     public bool rotatable = true;
@@ -35,11 +37,14 @@ public class Tile : MonoBehaviour
     private float clickSelTime = 0.2f;
     private bool selectFlag = false;
 
+    private bool isRotating = false;
+
 
     #region State Methods
     private void SetState(TileState newState)
     {
         state = newState;
+        stateSet = false;
     }
 
     private void StateMachine()
@@ -47,18 +52,30 @@ public class Tile : MonoBehaviour
         switch (state)
         {
             case TileState.IDLE:
-                transform.position = Vector3.Lerp(transform.position, idlePosition, 0.1f);
+                if (!stateSet)
+                {
+                    stateSet = true;
+                    LeanTween.move(gameObject, idlePosition, 0.2f).setEaseOutSine();
+                }
                 break;
             case TileState.SELECTED:
-                transform.position = Vector3.Lerp(transform.position, idlePosition + hoveringPositionOffset, 0.1f);
+                if (!stateSet)
+                {
+                    stateSet = true;
+                    LeanTween.move(gameObject, idlePosition + hoveringPositionOffset, 0.2f).setEaseOutSine();
+                }                
                 break;
             case TileState.MOVING:
-                transform.position = Vector3.Lerp(transform.position, targetPosition, 0.15f);
-                if (Vector3.Distance(transform.position, targetPosition) < 0.05f)
+                if (!stateSet)
                 {
-                    transform.position = GridMap.Instance.SnapCoordinateToGrid(transform.position);
-                    SetState(TileState.IDLE);                  
+                    stateSet = true;
+                    LeanTween.move(gameObject, targetPosition, 0.2f).setEaseOutSine().setOnComplete(() =>
+                    {
+                        transform.position = GridMap.Instance.SnapCoordinateToGrid(transform.position);
+                        SetState(TileState.IDLE);
+                    });
                 }
+
                 break;
         }
     }
@@ -102,7 +119,13 @@ public class Tile : MonoBehaviour
 
     public void RotateTile(int dir = 1)
     {
-        transform.Rotate(0, 60 * dir, 0);
+        if (isRotating) return;
+
+        isRotating = true;
+        LeanTween.rotateY(gameObject, transform.rotation.eulerAngles.y + 60 * dir, 0.4f).setEase(LeanTweenType.easeOutElastic).setOnComplete(() =>
+        {
+            isRotating = false;
+        });
     }
 
     public void SwapPositions(Vector3 target)

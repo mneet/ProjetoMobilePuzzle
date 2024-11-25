@@ -48,10 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5461893188009448840, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -172500888010250074, guid: 4eefa9c22040ec54d88e9d0692e5459e, type: 3}
     - target: {fileID: 7425326921641311365, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
       propertyPath: m_Name
       value: GemEmerald
       objectReference: {fileID: 0}
+    - target: {fileID: 8005003733467151932, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
+      propertyPath: gemModel
+      value: 
+      objectReference: {fileID: 4065767447303499260}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1038220183252736615, guid: 9f92766bc7ad40141b3dd273251d22a2, type: 3}
@@ -142,5 +150,10 @@ PrefabInstance:
 --- !u!4 &3686004289184954182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4eefa9c22040ec54d88e9d0692e5459e, type: 3}
+  m_PrefabInstance: {fileID: 3795945295143112877}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4065767447303499260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4eefa9c22040ec54d88e9d0692e5459e, type: 3}
   m_PrefabInstance: {fileID: 3795945295143112877}
   m_PrefabAsset: {fileID: 0}
