@@ -3699,10 +3699,7 @@ PrefabInstance:
     - {fileID: 2223710056174066373, guid: 7920693e0cf79c646bede292cf3daaf7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6736167556561563880, guid: 7920693e0cf79c646bede292cf3daaf7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1649276122597606562}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7920693e0cf79c646bede292cf3daaf7, type: 3}
 --- !u!224 &121030231233526271 stripped
 RectTransform:
@@ -3714,20 +3711,3 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6736167556561563880, guid: 7920693e0cf79c646bede292cf3daaf7, type: 3}
   m_PrefabInstance: {fileID: 9183915564789288064}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1649276122597606562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452348809409117288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327632c84e2021d4e852d5f749da9c42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuElements: []
-  menuPanel: {fileID: 0}
-  tweenTimeIn: 0.5
-  tweenTimeOut: 0.5
-  tweenDelay: 0.05

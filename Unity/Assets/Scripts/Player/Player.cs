@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     // Flag to enable/disable movement
     public bool followWaypoints = false;
 
+    [SerializeField] private GameObject sparkParticles;
+
     [Header("Waypaths")]
     // Waypath that the player is currently following
     [SerializeField] private Waypath currentWaypath;
@@ -33,17 +35,17 @@ public class Player : MonoBehaviour
 
     private void lookAtWaypoint(Transform point)
     {
-        // Calcular a direção apenas horizontalmente
+        // Calcular a direï¿½ï¿½o apenas horizontalmente
         Vector3 direction = new Vector3(point.position.x - transform.position.x, 0, point.position.z - transform.position.z).normalized;
 
-        // Criar a rotação alvo apenas no eixo Y
+        // Criar a rotaï¿½ï¿½o alvo apenas no eixo Y
         if (direction != Vector3.zero)
         {
-            // LookAt não funciona apenas com o eixo Y (Y = 0)
+            // LookAt nï¿½o funciona apenas com o eixo Y (Y = 0)
             // Quaternion targetRotation = Quaternion.LookRotation(direction)
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            // Manter a rotação atual em X e Z e aplicar a nova rotação em Y
+            // Manter a rotaï¿½ï¿½o atual em X e Z e aplicar a nova rotaï¿½ï¿½o em Y
             Quaternion newRotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, newRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
 
@@ -60,6 +62,7 @@ public class Player : MonoBehaviour
             {
                 AudioManager.Instance.PlayCarMoving();
                 carMovingAudioPlayed = true;
+                sparkParticles.SetActive(true);
             }
             Transform point = path.Peek();
 
@@ -99,6 +102,7 @@ public class Player : MonoBehaviour
                                 AudioManager.Instance.PlayCarBigCrash();
                                 ShakeCar();
                                 LevelManager.Instance.LoseLevel();
+                                sparkParticles.SetActive(false);
                             }
                         }
                     }
@@ -158,10 +162,10 @@ public class Player : MonoBehaviour
                 Transform[] pathQueue = path.ToArray();
                 Transform point = pathQueue[0];
 
-                // Calcular a direção apenas horizontalmente
+                // Calcular a direÃ§Ã£o apenas horizontalmente
                 Vector3 direction = new Vector3(point.position.x - transform.position.x, 0, point.position.z - transform.position.z).normalized;
                 
-                // Criar a rotação alvo apenas no eixo Y
+                // Criar a rotaÃ§Ã£oo alvo apenas no eixo Y
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 
                 transform.rotation = targetRotation;
@@ -187,6 +191,6 @@ public class Player : MonoBehaviour
     {
         wobbleIntenisityMeter = wobbleIntensity;
         wobbleCar = true;
-        
+        ScreenShake.instance.ShakeScreen();
     }
 }
