@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float wobbleDecay = 0.045f;
     private float wobbleIntenisityMeter = 0.2f;
 
+
+    [SerializeField] private Animator playerAnimator;
     // Private flags
     public bool startingPathFound = false;
     private bool carMovingAudioPlayed = false;
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
                 AudioManager.Instance.PlayCarMoving();
                 carMovingAudioPlayed = true;
                 sparkParticles.SetActive(true);
+                playerAnimator.enabled = true;
             }
             Transform point = path.Peek();
 
@@ -103,6 +106,7 @@ public class Player : MonoBehaviour
                                 ShakeCar();
                                 LevelManager.Instance.LoseLevel();
                                 sparkParticles.SetActive(false);
+                                playerAnimator.enabled = false;
                             }
                         }
                     }
@@ -127,6 +131,8 @@ public class Player : MonoBehaviour
         BuildPath();
         AudioManager.Instance._carSrc = GameObject.Find("CarCrashes").GetComponent<AudioSource>();
         AudioManager.Instance._carMovingSrc = GameObject.Find("CarMovingAudio").GetComponent<AudioSource>();
+
+        playerAnimator.enabled = false;
     }
 
     private void Update()
