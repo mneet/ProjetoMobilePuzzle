@@ -98,8 +98,8 @@ public class GridMap : MonoBehaviour
         if (LevelManager.Instance == null || !LevelManager.Instance.LevelInProgress() || GameManager.Instance.pause) return;
 
         Touch touch = Input.GetTouch(0);
-        // Verifica se o toque está na fase de toque inicial ou movido
-        // Converte a posição do toque para um ray
+        // Verifica se o toque estï¿½ na fase de toque inicial ou movido
+        // Converte a posiï¿½ï¿½o do toque para um ray
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
 
         // Raycast para a layer especificada
@@ -266,7 +266,7 @@ public class GridMap : MonoBehaviour
         {
             Tile tile = pathTilesList[0];
 
-            tile.RotateTile(-1);
+            tile.RotateTileQuick(-1);
 
             pathTilesList.RemoveAt(0);
             pathTilesList.Add(tile);

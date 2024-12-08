@@ -90,6 +90,7 @@ public class LevelManager : MonoBehaviour
     {
         if (state == LevelState.PUZZLE)
         {
+            GridMap.Instance.ClearSelectedTile();
             state = LevelState.PATH_FOLLOWING;
             if (player != null) player.GetComponent<Player>().followWaypoints = true;
             Debug.Log("Cart released");

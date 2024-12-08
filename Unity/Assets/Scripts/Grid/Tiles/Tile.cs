@@ -21,7 +21,8 @@ public class Tile : MonoBehaviour
     public TileState state = TileState.IDLE;
 
     private bool stateSet = false;
-
+    private float stateDelay = 0f;
+    private float sineTime = 0f;
     public bool Placed { get; private set; }
     public bool moveable = true;
     public bool rotatable = true;
@@ -61,9 +62,24 @@ public class Tile : MonoBehaviour
             case TileState.SELECTED:
                 if (!stateSet)
                 {
+                    sineTime = 0f;
+                    stateDelay = 0.2f;
                     stateSet = true;
                     LeanTween.move(gameObject, idlePosition + hoveringPositionOffset, 0.2f).setEaseOutSine();
-                }                
+                }        
+
+               
+                if (stateDelay <= 0)
+                {
+                    sineTime += Time.deltaTime;
+                    float offset = 0.05f * Mathf.Sin(sineTime * 3f);
+                    transform.position = (idlePosition + hoveringPositionOffset) + Vector3.up * offset;
+                } 
+                else
+                {
+                    stateDelay -= Time.deltaTime;
+                }
+
                 break;
             case TileState.MOVING:
                 if (!stateSet)
@@ -126,6 +142,11 @@ public class Tile : MonoBehaviour
         {
             isRotating = false;
         });
+    }
+
+    public void RotateTileQuick(int dir = 1)
+    {
+        transform.Rotate(0, 60 * dir, 0);
     }
 
     public void SwapPositions(Vector3 target)

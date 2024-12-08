@@ -86,16 +86,17 @@ public class Gem : MonoBehaviour
         // Scale Down
         LeanTween.scale(gameObject, new Vector3(0.7f, 0.7f, 0.7f), .5f).setEase(LeanTweenType.easeInSine);
 
-        // If Destroy is turned on, tween alpha
-        if (destroyWhenCollected) LeanTween.alpha(gemModel, 0f, .5f).setDelay(0.5f).setEase(LeanTweenType.easeInSine);
-
         // Spring back to original scale
-        LeanTween.scale(gameObject, Vector3.one, 1f).setEase(LeanTweenType.easeOutElastic).setDelay(.5f).setOnComplete(() =>
+        LeanTween.scale(gameObject, Vector3.one, .5f).setEase(LeanTweenType.easeOutElastic).setDelay(.5f).setOnComplete(() =>
         {
             
             if (destroyWhenCollected)
             {
-                Destroy(gameObject);
+                LeanTween.alpha(gemModel, 0f, .3f).setEase(LeanTweenType.easeInSine);
+                LeanTween.scale(gameObject, Vector3.zero, .3f).setEase(LeanTweenType.easeInSine).setOnComplete(() =>
+                {
+                    Destroy(gameObject);
+                });
             }
             else if (!destroyWhenCollected)
             {
