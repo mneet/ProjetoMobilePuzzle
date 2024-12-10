@@ -3375,11 +3375,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<size=72>Mois\xE9s Alves de Azevedo Neto\n<size=56>Programa\xE7\xE3o,
-    Game Design e Efeitos Sonoros\n<size=72>Matheus de Souza Martins\n<size=56>Modelagem
-    de cen\xE1rio e personagem\n<size=72>Nirvana de Oliveira Barros\n<size=56>Modelagem
-    3D e Documenta\xE7\xE3o\n<size=72>Rodrigues Wellioenay Aguiar de\_Souza\n<size=56>Concept
-    Art e Interfaces\n<size=72>Jonathan Frederico Passos\n<size=56>Programa\xE7\xE3o"
+  m_text: "<size=60>Mois\xE9s Alves de Azevedo Neto\n<size=50>Programa\xE7\xE3o,
+    Game Design e Efeitos Sonoros\n<size=60>Matheus de Souza Martins\n<size=50>Modelagem
+    de cen\xE1rio e personagem\n<size=60>Nirvana de Oliveira Barros\n<size=50>Modelagem
+    3D e Documenta\xE7\xE3o\n<size=60>Rodrigues Wellioenay Aguiar de\_Souza\n<size=50>Concept
+    Art e Interfaces\n<size=60>Jonathan Frederico Passos\n<size=50>Programa\xE7\xE3o\n<size=60>
+    Orientador: Roque Anderson"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c45e9acf1d371c42ac647b883035cfb, type: 2}
   m_sharedMaterial: {fileID: 1802190462024265242, guid: 4c45e9acf1d371c42ac647b883035cfb, type: 2}
@@ -3442,7 +3443,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 1.7669678, z: -1.9923096, w: 2.1947632}
+  m_margin: {x: 31.639038, y: 10.395752, z: 23.894104, w: 36.335663}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
