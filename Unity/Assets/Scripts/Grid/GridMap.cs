@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using static LevelManager;
 
 public class GridMap : MonoBehaviour
@@ -48,6 +49,8 @@ public class GridMap : MonoBehaviour
         //    Debug.Log($"{MainTilemap.GetTile(gridPos)} | {gridPos}");
         //}
 
+        RayCastMouseToTile();
+        /*
         if (Input.touchCount > 0)
         {
             RayCastTouchToTile();
@@ -56,6 +59,7 @@ public class GridMap : MonoBehaviour
         {
             tileClicking = null;
         }
+        */
     }
 
 
@@ -115,6 +119,30 @@ public class GridMap : MonoBehaviour
             }         
         }
     }
+
+    public void RayCastMouseToTile()
+    {
+        if (LevelManager.Instance == null || !LevelManager.Instance.LevelInProgress() || GameManager.Instance.pause) 
+            return;
+
+        // Verifica se o botão esquerdo do mouse foi clicado
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Converte a posição do mouse para um ray
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            // Raycast para a layer especificada
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, tileLayer))
+            {
+                Tile tileHit = raycastHit.collider.gameObject.GetComponent<Tile>();
+                if (tileHit != null && (tileHit.moveable || tileHit.rotatable))
+                {
+                    ClickTileSelect(tileHit);
+                }
+            }
+        }
+    }
+
 
     public void InitializeWithObject(GameObject prefab)
     {
